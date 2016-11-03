@@ -1,0 +1,127 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+<script>
+            $(document).ready(function () {
+                $('.collapsible').collapsible({
+                    accordion: true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+            });
+</script>
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12">
+
+                <ul id="task-card" class="collection with-header" ng-controller="agendaController">
+                    <li class="collection-header cyan">
+                        <h4 class="task-card-title">Consultorias</h4>
+                    </li>
+                    <li ng-repeat="consultoria in data" ng-if="consultoria.cliente === dataCliente.nome" class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                        <a class="secondary-content task-cat orange waves-effect waves-light" href="#consultoria/{{consultoria.$id}}">Acessar</a>
+                        {{consultoria.cliente}} - <em>{{consultoria.propriedade}}</em><br>
+                        Consultor: {{consultoria.consultor}}<br>
+                    </li>                    
+                </ul>                
+            </div>
+            <!--
+            <div class="col s12">
+                <ul id="task-card" class="collection with-header" ng-controller="agendaController">
+                    <li class="collection-header red">
+                        <h4 class="task-card-title">Residuais</h4>
+                        <p class="task-card-date">Propriedades em etapas de riscos</p>
+                    </li>
+                    <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                        <ul class="collapsible popout collapsible-accordion" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header grey accent-3 white-text"><i class="mdi-device-access-alarms"></i> 2º Fungicida</div>
+                                <div class="collapsible-body">
+                                    <div style="padding: 2rem">
+                                        <ul class="collapsible" data-collapsible="accordion" watch>
+                                            <li ng-repeat="residuos in planejamentosDados">
+                                                <div class="collapsible-header active">
+                                                    {{residuos.dados.cliente}} - {{residuos.dados.propriedade}}
+                                                </div>
+                                                <div class="collapsible-body">
+                                                    <div ng-repeat="dadosPlanejamento in residuos.planejamentoTalhoes">
+                                                        <div style="padding: 10px 1rem" ng-if="dadosPlanejamento.dois_ultra_inseticidas_data !== NULL">
+                                                            <strong>Nome do Talhão: </strong>{{dadosPlanejamento.talhao}}<br>
+                                                            <strong>Data de Aplicação: </strong>{{dadosPlanejamento.dois_ultra_inseticidas_data| date: 'dd/MM/yyyy'}}<br>
+                                                            <strong>Dias Restantes </strong><span ng-init="dataDif(dadosPlanejamento.dois_ultra_inseticidas_data)">{{diferenca}}</span><br><br>
+                                                            <div class="divider"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>                       
+                            <li>
+                                <div class="collapsible-header grey accent-3 white-text"><i class="mdi-device-access-alarms"></i> 3º Fungicida</div>
+                                <div class="collapsible-body">
+                                    <div style="padding: 2rem">
+                                        <ul class="collapsible" data-collapsible="accordion" watch>
+                                            <li ng-repeat="residuos in planejamentosDados">
+                                                <div class="collapsible-header active">
+                                                    {{residuos.dados.cliente}} - {{residuos.dados.propriedade}}
+                                                </div>
+                                                <div class="collapsible-body">
+                                                    <div ng-repeat="dadosPlanejamento in residuos.planejamentoTalhoes">
+                                                        <div style="padding: 10px 1rem" ng-if="dadosPlanejamento.segundo_fungicida_fungicida_data !== NULL">
+                                                            <strong>Nome do Talhão: </strong>{{dadosPlanejamento.talhao}}<br>
+                                                            <strong>Data de Aplicação: </strong>{{dadosPlanejamento.segundo_fungicida_fungicida_data| date: 'dd/MM/yyyy'}}<br>
+                                                            <strong>Dias Restantes </strong><span ng-init="dataDif(dadosPlanejamento.segundo_fungicida_fungicida_data)">{{diferenca}}</span><br><br>
+                                                            <div class="divider"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>                       
+                            <li>
+                                <div class="collapsible-header grey accent-3 white-text"><i class="mdi-device-access-alarms"></i> 4º Fungicida</div>
+                                <div class="collapsible-body">
+                                    <div style="padding: 2rem">
+                                        <ul class="collapsible" data-collapsible="accordion" watch>
+                                            <li ng-repeat="residuos in planejamentosDados">
+                                                <div class="collapsible-header active">
+                                                    {{residuos.dados.cliente}} - {{residuos.dados.propriedade}}
+                                                </div>
+                                                <div class="collapsible-body">
+                                                    <div ng-repeat="dadosPlanejamento in residuos.planejamentoTalhoes">
+                                                        <div style="padding: 10px 1rem" ng-if="dadosPlanejamento.terceiro_fungicida_fungicida_data !== NULL">
+                                                            <strong>Nome do Talhão: </strong>{{dadosPlanejamento.talhao}}<br>
+                                                            <strong>Data de Aplicação: </strong>{{dadosPlanejamento.terceiro_fungicida_fungicida_data| date: 'dd/MM/yyyy'}}<br>
+                                                            <strong>Dias Restantes </strong><span ng-init="dataDif(dadosPlanejamento.terceiro_fungicida_fungicida_data)">{{diferenca}}</span><br><br>
+                                                            <div class="divider"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>                       
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+<!--end container-->

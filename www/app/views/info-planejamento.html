@@ -1,0 +1,62 @@
+<script src="js/table-script.js" type="text/javascript"></script>
+<link href="css/customTable.css" rel="stylesheet" type="text/css"/>
+
+
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#planejamentos">Planejamentos</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Informações do Planejamento <strong>{{data.titulo}}</strong>.</p>
+        <div class="divider"></div><br>
+
+        <fieldset>
+            <legend>Informações do Planejamento</legend>
+            <h5><strong>Proprietário: </strong>{{data.cliente}}</h5>
+            <h5><strong>Cidade: </strong>{{dataP.cidade}} / {{dataP.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{dataP.zona_rural}}</h5>
+        </fieldset>
+        <div class="divider"></div><br>
+        <div id="table-datatables">
+            <form method="post" action="javascript:;" id="frm-filtro">                
+                <div class="input-field">
+                    <label for="pesquisar">Pesquisar</label>
+                    <input type="text" id="pesquisar" name="pesquisar" size="30" />                
+                </div>
+            </form>
+
+            <table id="data-table-simple" class="responsive-table display hoverable centered" cellspacing="0" summary="Tabela de propriedades">
+                <thead>
+                    <tr>
+                        <th data-field="Talhão"><i class="mdi-content-content-paste"></i> Talhão</th>
+                        <th data-field="Cultivar"><i class="mdi-maps-terrain"></i> Cultivar</th>
+                        <th data-field="Ações"><i class="mdi-action-settings"></i> Ações</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr ng-repeat="(key, planejamentoT) in dataT">
+                        <td>{{planejamentoT.talhao}}</td>
+                        <td>{{planejamentoT.variedade}}</td>                        
+                        <td>
+                            <a class="btn teal waves-effect waves-light modal-trigger" href="#info-planejamento-talhao/{{id}}/{{key}}"><i class="mdi-action-info"></i> Informações</a>
+                        </td>                        
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

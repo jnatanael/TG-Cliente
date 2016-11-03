@@ -1,0 +1,394 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#planejamentos">Planejamentos</a></li>
+                    <li><a href="#info-planejamento/{{id}}">Planejamento Talhão {{dataT.talhao}}</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Informações do Planejamento <strong>{{data.titulo}}</strong>.</p>
+        <div class="divider"></div><br>
+
+        <fieldset>
+            <legend>Informações do Planejamento</legend>
+            <h5><strong>Proprietário: </strong>{{data.cliente}}</h5>
+            <h5><strong>Cidade: </strong>{{dataP.cidade}} / {{dataP.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{dataP.zona_rural}}</h5>
+            <h5><strong>Propriedade: </strong> {{dataT.propriedade}}</h5>
+            <h5><strong>Talhão: </strong> {{dataT.talhao}}</h5>
+        </fieldset>
+        <fieldset>
+            <legend>Planejamento</legend>
+            <form>
+                <input type="hidden" value="{{dataT.talhao}}" id="talhaoNome">
+                <input type="hidden" value="{{id}}" id="id1">
+                <input type="hidden" value="{{id2}}" id="id2">
+                <div class="row">
+                    <div class="input-field col s12 m4 l4">
+                        <input id="variedade" type="text" disabled class="validate" value="{{dataT.variedade}}">
+                        <label for="variedade" class="active">Variedade</label>
+                    </div>
+                    <div class="input-field col s6 m4 l4">
+                        <input id="area_medida" type="text" disabled value="{{dataT.area_medida}}" class="validate">
+                        <label for="area_medida" class="active">Área Medida</label>
+                    </div>
+                    <div class="input-field col s6 m4 l4">
+                        <input id="populacao" type="text" disabled value="{{dataT.populacao}}" class="validate">
+                        <label for="populacao" class="active">População</label>
+                    </div>
+                    <div class="input-field col s6 m3 l3">
+                        <input id="adubacao_plantio" type="text" disabled value="{{dataT.adubacao_plantio}}" class="validate">
+                        <label for="adubacao_plantio" class="active">Adubação Plantio</label>
+                    </div>
+                    <div class="input-field col s6 m3 l3">
+                        <input id="adubacao_cobertura" type="text" disabled value="{{dataT.adubacao_cobertura}}" class="validate">
+                        <label for="adubacao_cobertura" class="active">Adubação Cobertura</label>
+                    </div>
+                    <div class="input-field col s6 m3 l3">
+                        <input id="regulagem_pulverizador" type="text" disabled value="{{dataT.regulagem_pulverizador}}" class="validate">
+                        <label for="regulagem_pulverizador" class="active">Regulagem do Pulverizador</label>
+                    </div>                
+                    <div class="input-field col s6 m3 l3">
+                        <input id="regulagem_plantandeira" type="text" disabled value="{{dataT.regulagem_plantandeira}}" class="validate">
+                        <label for="regulagem_plantandeira" class="active">Regulagem da Plantadeira</label>
+                    </div>                
+                </div>
+                <div id="planejamentoFinal">
+                    <fieldset>
+                        <legend>Dessecação<sup>1</sup></legend>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Planejado</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoD" disabled class="validate materialize-textarea">{{dataT.dessecacao_planejado}}</textarea>
+                                        <label for="produtoD" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Realizado</legend>
+                                    <p>Data de Realização: {{dataT.dessecacao_realizado_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="dessecacao_realizado_data" type="date" class="validate">
+                                        <label class="active"  for="dessecacao_realizado_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="dessecacao_realizado" class="validate materialize-textarea">{{dataT.dessecacao_realizado}}</textarea>
+                                        <label for="dessecacao_realizado" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                    <fieldset>
+                        <legend>Plantio<sup>2</sup></legend>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Planejado por kg de sementes</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoP" disabled class="validate materialize-textarea">{{dataT.plantio_planejado}}</textarea>
+                                        <label for="produtoP" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Realizado</legend>
+                                    <p>Data de Realização: {{dataT.plantio_realizado_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="plantio_realizado_data" type="date" class="validate">
+                                        <label class="active"  for="plantio_realizado_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="plantio_realizado" class="validate materialize-textarea">{{dataT.plantio_realizado}}</textarea>
+                                        <label for="plantio_realizado" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                    <fieldset>
+                        <legend>1 de Ultra<sup>3</sup></legend>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input id="um_ultra_estagio"  disabled type="text" value="{{dataT.um_ultra_estagio}}" class="validate">
+                                    <label for="um_ultra_estagio" class="active">Estágio</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Padrão</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoU" disabled class="validate materialize-textarea">{{dataT.um_ultra_padrao}}</textarea>
+                                        <label for="produtoU" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Inseticidas</legend>
+                                    <p>Data de Realização: {{dataT.um_ultra_inseticidas_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="um_ultra_inseticidas_data" type="date" class="validate">
+                                        <label class="active"  for="um_ultra_inseticidas_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="um_ultra_inseticidas" class="validate materialize-textarea">{{dataT.um_ultra_inseticidas}}</textarea>
+                                        <label for="um_ultra_inseticidas" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                    <fieldset>
+                        <legend>2 de Ultra<sup>4</sup></legend>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input id="dois_ultra_estagio" disabled type="text" value="{{dataT.dois_ultra_estagio}}" class="validate">
+                                    <label for="dois_ultra_estagio" class="active">Estágio</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Padrão</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoTwoU" disabled class="validate materialize-textarea">{{dataT.dois_ultra_padrao}}</textarea>
+                                        <label for="produtoTwoU" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Inseticidas</legend>
+                                    <p>Data de Realização: {{dataT.dois_ultra_inseticidas_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="dois_ultra_inseticidas_data" type="date" class="validate">
+                                        <label class="active"  for="dois_ultra_inseticidas_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="dois_ultra_inseticidas" class="validate materialize-textarea">{{dataT.dois_ultra_inseticidas}}</textarea>
+                                        <label for="dois_ultra_inseticidas" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>                    
+                    <fieldset>
+                        <legend>2<sup>o</sup> Fungicida<sup>5</sup></legend>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input id="segundo_fungicida_estagio" disabled type="text" value="{{dataT.segundo_fungicida_estagio}}" class="validate">
+                                    <label for="segundo_fungicida_estagio" class="active">Estágio</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Padrão</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoTwoF" disabled class="validate materialize-textarea">{{dataT.segundo_fungicida_padrao}}</textarea>
+                                        <label for="produtoTwoF" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Fungicida</legend>
+                                    <p>Data de Realização: {{dataT.segundo_fungicida_fungicida_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="segundo_fungicida_fungicida_data" type="date" class="validate">
+                                        <label class="active"  for="primeiro_fungicida_fungicida_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="segundo_fungicida_fungicida" class="validate materialize-textarea">{{dataT.segundo_fungicida_fungicida}}</textarea>
+                                        <label for="segundo_fungicida_fungicida" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                    <fieldset>
+                        <legend>3<sup>o</sup> Fungicida<sup>6</sup></legend>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input id="terceiro_fungicida_estagio" disabled type="text" value="{{dataT.terceiro_fungicida_estagio}}" class="validate">
+                                    <label for="terceiro_fungicida_estagio" class="active">Estágio</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Padrão</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoTreF" disabled class="validate materialize-textarea">{{dataT.terceiro_fungicida_padrao}}</textarea>
+                                        <label for="produtoTreF" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Fungicida</legend>
+                                    <p>Data de Realização: {{dataT.terceiro_fungicida_fungicida_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="terceiro_fungicida_fungicida_data" type="date" class="validate">
+                                        <label class="active"  for="terceiro_fungicida_fungicida_data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="terceiro_fungicida_fungicida" class="validate materialize-textarea">{{dataT.terceiro_fungicida_fungicida}}</textarea>
+                                        <label for="terceiro_fungicida_fungicida" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                    <fieldset>
+                        <legend>4<sup>o</sup> Fungicida</legend>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input id="quarto_fungicida_estagio" disabled type="text" value="{{dataT.quarto_fungicida_estagio}}" class="validate">
+                                    <label for="quarto_fungicida_estagio" class="active">Estágio</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Padrão</legend>
+                                    <div class="input-field col s12">
+                                        <textarea id="produtoF" disabled class="validate materialize-textarea">{{dataT.quarto_fungicida_padrao}}</textarea>
+                                        <label for="produtoF" class="active">Produto - Dosagem</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col s12 m6 l6">
+                                <fieldset>
+                                    <legend>Fungicida</legend>
+                                    <p>Data de Realização: {{dataT.quarto_fungicida_fungicida_data | date:'dd/MM/yyyy'}}</p>
+                                    <div class="input-field col s12">
+                                        <input id="quarto_fungicida_fungicida_data" type="date" class="validate">
+                                        <label class="active"  for="quarto_fungicida_fungicida_Data">Data</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="quarto_fungicida_fungicida" class="validate materialize-textarea">{{dataT.primeiro_fungicida_fungicida}}</textarea>
+                                        <label for="quarto_fungicida_fungicida" class="active">Dados</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>                
+                    </fieldset>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Atualizar Planejamento
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+
+<script>
+
+    function salvar() {
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        var talhao = $('#talhaoNome').val();
+        var variedade = $('#variedade').val();
+        var area_medida = $('#area_medida').val();
+        var populacao = $('#populacao').val();
+        var adubacao_plantio = $('#adubacao_plantio').val();
+        var adubacao_cobertura = $('#adubacao_cobertura').val();
+        var regulagem_pulverizador = $('#regulagem_pulverizador').val();
+        var regulagem_plantandeira = $('#regulagem_plantandeira').val();
+        var dessecacao_realizado = $('#dessecacao_realizado').val();
+        var dessecacao_realizado_data = $('#dessecacao_realizado_data').val();
+        var plantio_realizado = $('#plantio_realizado').val();
+        var plantio_realizado_data = $('#plantio_realizado_data').val();
+        var um_ultra_estagio = $('#um_ultra_estagio').val();
+        var um_ultra_inseticidas = $('#um_ultra_inseticidas').val();
+        var um_ultra_inseticidas_data = $('#um_ultra_inseticidas_data').val();
+        var dois_ultra_estagio = $('#dois_ultra_estagio').val();
+        var dois_ultra_inseticidas = $('#dois_ultra_inseticidas').val();
+        var dois_ultra_inseticidas_data = $('#dois_ultra_inseticidas_data').val();
+        var segundo_fungicida_estagio = $('#segundo_fungicida_estagio').val();
+        var segundo_fungicida_fungicida = $('#segundo_fungicida_fungicida').val();
+        var segundo_fungicida_fungicida_data = $('#segundo_fungicida_fungicida_data').val();
+        var terceiro_fungicida_estagio = $('#terceiro_fungicida_estagio').val();
+        var terceiro_fungicida_fungicida = $('#terceiro_fungicida_fungicida').val();
+        var terceiro_fungicida_fungicida_data = $('#terceiro_fungicida_fungicida_data').val();
+        var quarto_fungicida_estagio = $('#quarto_fungicida_estagio').val();
+        var quarto_fungicida_fungicida = $('#quarto_fungicida_fungicida').val();
+        var quarto_fungicida_fungicida_data = $('#quarto_fungicida_fungicida_data').val();
+
+        var id1 = $('#id1').val();
+        var id2 = $('#id2').val();
+
+        var produtoD = $('#produtoD').val();
+        var produtoP = $('#produtoP').val();
+        var produtoU = $('#produtoU').val();
+        var produtoTwoU = $('#produtoTwoU').val();
+        var produtoF = $('#produtoF').val();
+        var produtoTwoF = $('#produtoTwoF').val();
+        var produtoTreF = $('#produtoTreF').val();
+
+        firebase.database().ref('planejamentos/' + id1 + '/planejamentoTalhoes/' + id2).set({
+            variedade: variedade,
+            area_medida: area_medida,
+            populacao: populacao,
+            adubacao_plantio: adubacao_plantio,
+            adubacao_cobertura: adubacao_cobertura,
+            regulagem_pulverizador: regulagem_pulverizador,
+            regulagem_plantandeira: regulagem_plantandeira,
+            dessecacao_realizado: dessecacao_realizado,
+            dessecacao_realizado_data: dessecacao_realizado_data,
+            dessecacao_planejado: produtoD,
+            plantio_planejado: produtoP,
+            plantio_realizado: plantio_realizado,
+            plantio_realizado_data: plantio_realizado_data,
+            um_ultra_estagio: um_ultra_estagio,
+            um_ultra_inseticidas: um_ultra_inseticidas,
+            um_ultra_inseticidas_data: um_ultra_inseticidas_data,
+            dois_ultra_estagio: dois_ultra_estagio,
+            dois_ultra_inseticidas: dois_ultra_inseticidas,
+            dois_ultra_inseticidas_data: dois_ultra_inseticidas_data,
+            segundo_fungicida_estagio: segundo_fungicida_estagio,
+            segundo_fungicida_fungicida: segundo_fungicida_fungicida,
+            segundo_fungicida_fungicida_data: segundo_fungicida_fungicida_data,
+            terceiro_fungicida_estagio: terceiro_fungicida_estagio,
+            terceiro_fungicida_fungicida: terceiro_fungicida_fungicida,
+            terceiro_fungicida_fungicida_data: terceiro_fungicida_fungicida_data,
+            quarto_fungicida_estagio: quarto_fungicida_estagio,
+            quarto_fungicida_fungicida: quarto_fungicida_fungicida,
+            quarto_fungicida_fungicida_data: quarto_fungicida_fungicida_data,
+            talhao: talhao,
+            um_ultra_padrao: produtoU,
+            dois_ultra_padrao: produtoTwoU,
+            segundo_fungicida_padrao: produtoTwoF,
+            terceiro_fungicida_padrao: produtoTreF,
+            quarto_fungicida_padrao: produtoF
+        });
+        swal("Planejamento atualizado com sucesso!", "", "success");
+    }
+    ;
+</script>

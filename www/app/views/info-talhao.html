@@ -1,0 +1,45 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#propriedades">Propriedades</a></li>
+                    <li><a href="#info-propriedade/{{data.$id}}">{{data.nome_fazenda}}</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Informações da Propriedade <strong>{{data.nome_fazenda}}</strong>.</p>
+        <div class="divider"></div><br>
+        <fieldset>
+            <legend>Informações da propriedade</legend>
+            <h5><strong>Proprietário: </strong>{{data.proprietario}}</h5>
+            <h5><strong>Cidade: </strong>{{data.cidade}} / {{data.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{data.zona_rural}}</h5>
+        </fieldset>
+
+        <fieldset>
+            <legend>Informação do Talhão</legend>
+            <h5><strong>Nome: </strong>{{dataTalhao.nome}}</h5>
+            <h5><strong>Tamanho: </strong>{{dataTalhao.tamanho}}</h5>
+            <h5><strong>Situação: </strong>{{dataTalhao.situacao}}</h5>
+            <h5><strong> Observações:</strong></h5>
+            <p>{{dataTalhao.observacao}}</p>{{latitude}}
+            <hr>
+            <br>
+            <div class="card-image waves-effect waves-block waves-light">                
+                <div id="map-canvas" style="height: 300px;"></div>
+            </div>
+        </fieldset>
+
+    </div>
+</div>

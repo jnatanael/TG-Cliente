@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="terrasApp">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="description" content="Aplicativo de gerenciamento Terras Gerais">
+        <meta name="keywords" content="terras gerais, consultoria agricola">
+        <title>Terras Gerais - Consultoria Agrícola</title>
+
+        <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="images/favicon/manifest.json">
+
+        <meta name="theme-color" content="#00bcd4">
+
+        <!-- Favicons-->
+        <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+
+        <!-- For iPhone -->
+        <meta name="msapplication-TileColor" content="#00bcd4">
+        <meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png">
+        <!-- For Windows Phone -->
+
+
+        <!-- CORE CSS-->
+        <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <!-- Custome CSS-->    
+        <link href="css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="js/plugins/sweetalert/dist/sweetalert.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+        <link href="js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+        <!-- jQuery Library -->
+        <script type="text/javascript" src="js/plugins/jquery-1.11.2.min.js"></script>
+
+        <!-- SPELLS -->
+        <!-- load angular and angular route via CDN -->
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.js"></script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrH9Rabs_95x3EtDYMAW65R22V6XMBDJ0"></script>
+
+        <script src="js/firebase.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBrH9Rabs_95x3EtDYMAW65R22V6XMBDJ0",
+                authDomain: "terras-52f04.firebaseapp.com",
+                databaseURL: "https://terras-52f04.firebaseio.com",
+                storageBucket: "terras-52f04.appspot.com"
+            };
+            firebase.initializeApp(config);
+            // Get a reference to the storage service, which is used to create references in your storage bucket
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+
+        </script>
+
+
+        <script type="text/javascript">
+
+            /**
+             * Handles the sign in button press.
+             */
+            function toggleSignIn() {
+                if (firebase.auth().currentUser) {
+                    swal({
+                        title: "Sair do Sistema?",
+                        text: "Você deseja realmente sair?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Sim!',
+                        cancelButtonText: "Não!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    // [START signout]
+                                    firebase.auth().signOut();
+                                    // [END signout]
+
+                                } else {
+                                    swal("Cancelado", "Você não saiu do sistema!)", "success");
+                                }
+                            });
+
+                }
+                document.getElementById('sign-in').disabled = true;
+            }
+
+            /**
+             * Handles registering callbacks for the auth status.
+             *
+             * This method registers a listener with firebase.auth().onAuthStateChanged. This listener is called when
+             * the user is signed in or out, and that is where we update the UI.
+             *
+             * When signed in, we also authenticate to the Firebase Realtime Database.
+             */
+            function initApp() {
+
+                var loginUser = document.getElementById('sign-in');
+
+                // Listening for auth state changes.
+                // [START authstatelistener]
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (!user) {
+                        window.location.href = "index.html";
+                    }
+                    loginUser.disabled = false;
+
+                });
+
+                loginUser.addEventListener('click', toggleSignIn, false);
+            }
+
+            window.onload = function () {
+                initApp();
+            };
+        </script>
+
+
+
+        <!-- AngularFire -->
+        <script src="js/angularfire.min.js"></script>
+
+
+        <script src="app/app.js"></script>
+    </head>
+
+    <body ng-controller="mainController">
+        <!-- Start Page Loading -->
+        <div id="loader-wrapper">
+            <div id="loader"></div>        
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+        <!-- End Page Loading -->
+
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+        <!-- START HEADER -->
+        <header id="header" class="page-topbar">
+            <!-- start header nav-->
+            <div class="navbar-fixed">
+                <nav class="navbar-color teal darken-3">
+                    <div class="nav-wrapper">
+                        <ul class="left">                      
+                            <li><h1 class="logo-wrapper"><a href="javascript:;" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Terras Gerais</span></h1></li>
+                        </ul>
+                        <ul class="right hide-on-med-and-down">
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen tooltipped" data-position="bottom" data-tooltip="Fullscreen"><i class="mdi-action-settings-overscan"></i></a>
+                            </li>
+                            <li ng-controller="msgController">
+                                <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
+                                    <i class="mdi-social-notifications"><small class="notification-badge" ng-if="n > 0">{{n}}</small></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse tooltipped" data-position="bottom" data-tooltip="Mensagens"><i class="mdi-communication-chat"></i></a>
+                            </li>                            
+                            <li><a href="javascript:;" id="sign-in" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-tooltip="Sair"><i class="mdi-hardware-keyboard-tab"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- end header nav-->
+        </header>
+        <!-- END HEADER -->
+        <!-- notifications-dropdown -->
+        <ul ng-controller="msgController" id="notifications-dropdown" class="dropdown-content">
+            <li>
+                <h5>Notificações</h5>
+            </li>
+            <li class="divider"></li>
+            <li ng-repeat="msg in data">
+                <a href="#msg/{{id}}/{{msg.$id}}"><i class="mdi-communication-chat"></i> {{msg.assunto}}</a>
+                <time class="media-meta" datetime="{{msg.data}}">{{msg.data}}</time>
+            </li>           
+        </ul>   
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+        <!-- START MAIN -->
+        <div id="main">
+            <!-- START WRAPPER -->
+            <div class="wrapper">
+
+                <!-- START LEFT SIDEBAR NAV-->
+                <aside id="left-sidebar-nav">
+                    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                        <li class="user-details cyan darken-2">
+                            <div class="row" ng-controller="nomeController">
+                                <div class="col col s4 m4 l4">
+                                    <img src="{{data.avatar}}" alt="{{data.nome}}" class="circle responsive-img valign profile-image">
+                                </div>
+                                <div class="col col s8 m8 l8">
+                                    <ul id="profile-dropdown" class="dropdown-content">
+                                        <li ng-class='{"active":tog == 10}' ng-click='tog = 10'><a href="#perfil"><i class="mdi-action-face-unlock"></i> Perfil</a>
+                                        </li> 
+                                        <li><a onclick="toggleSignIn()" href="javascript:;" id="sign-in" class="waves-effect waves-block waves-light tooltipped" data-position="bottom" data-tooltip="Sair"><i class="mdi-hardware-keyboard-tab"></i> Sair</a>
+                                        </li>
+                                    </ul>
+
+                                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">Cliente <i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                    <p class="user-roal">{{data.nome}}</p>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="bold" ng-class='{"active":tog == 1}' ng-click='tog = 1'><a href="#/" class="waves-effect waves-cyan change-content"><i class="mdi-action-dashboard"></i> Dashboard</a>
+                        </li>
+                        <li class="bold" ng-class='{"active":tog == 2}' ng-click='tog = 2'><a href="#agenda" class="waves-effect waves-cyan change-content"><i class="mdi-editor-insert-invitation"></i> Agenda</a>
+                        </li>                        
+                        <li class="bold" ng-class='{"active":tog == 4}' ng-click='tog = 4'><a href="#propriedades" class="waves-effect waves-cyan change-content"><i class="mdi-maps-terrain"></i> Propriedades</a>                        
+                        <li class="bold" ng-class='{"active":tog == 6}' ng-click='tog = 6'><a href="#planejamentos" class="waves-effect waves-cyan change-content"><i class="mdi-content-content-paste"></i> Planejamento</a>
+                        </li>                        
+                    </ul>
+                    <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+                </aside>
+                <!-- END LEFT SIDEBAR NAV-->
+
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+                <!-- START CONTENT -->
+                <section id="content">
+                    <!-- angular templating -->
+                    <!-- this is where content will be injected -->
+                    <div ng-view></div>
+
+                </section>
+                <!-- END CONTENT -->
+
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+                <!-- START RIGHT SIDEBAR NAV-->
+                <aside id="right-sidebar-nav">
+                    <ul id="chat-out" class="side-nav rightside-navigation">                        
+                        <li class="li-hover">
+                            <ul class="chat-collapsible" data-collapsible="expandable">                                
+                                <li>
+                                    <div class="collapsible-header teal white-text active">
+                                        <i class="mdi-social-whatshot"></i>Notificações Anteriores
+                                    </div>
+                                    <div ng-controller="msgController" class="collapsible-body recent-activity">
+                                        <div ng-repeat="msg2 in data2">
+                                            <div class="recent-activity-list chat-out-list row">
+                                                <div class="col s3 recent-activity-list-icon">
+                                                    <i class="mdi-communication-chat"></i>
+                                                </div>
+                                                <div class="col s9 recent-activity-list-text">
+                                                    <a href="#msg/{{id}}/{{msg2.$id}}">{{msg2.assunto}}</a>
+                                                    <p>{{msg2.data}}</p>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+                <!-- LEFT RIGHT SIDEBAR NAV-->
+
+            </div>
+            <!-- END WRAPPER -->
+
+        </div>
+        <!-- END MAIN -->
+
+
+
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+        <!-- START FOOTER -->
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="container">
+                    <span>Copyright © 2016 <a class="grey-text text-lighten-4" href="http://www.terrasgerais.com" target="_blank">Terras Gerais Consultoria Agrícola</a>.</span>
+                    <span class="right"> Developed by <a class="grey-text text-lighten-4" href="http://www.jnatanael.xyz/" target="_blank">J.Natanael</a></span>
+                </div>
+            </div>
+        </footer>
+        <!-- END FOOTER -->
+
+
+
+        <!-- ================================================
+        Scripts
+        ================================================ --> 
+
+        <!--materialize js-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--prism -->
+        <script type="text/javascript" src="js/plugins/prism/prism.js"></script>
+        <!--scrollbar-->
+        <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <!--sweetalert -->
+        <script type="text/javascript" src="js/plugins/sweetalert/dist/sweetalert.min.js"></script>   
+
+
+
+        <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+        <script type="text/javascript" src="js/plugins.min.js"></script>
+        <!--custom-script.js - Add your own theme custom JS-->
+        <script type="text/javascript" src="js/custom-script.js"></script>
+
+        <script type="text/javascript">
+                                                                /*Show entries on click hide*/
+                                                                $(document).ready(function () {
+                                                                    $('.tooltipped').tooltip({delay: 5});
+                                                                });
+        </script>
+
+    </body>
+
+</html>

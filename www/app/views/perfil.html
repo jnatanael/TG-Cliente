@@ -1,0 +1,281 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <div id="profile-page-header" class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="images/user-profile-bg.jpg" alt="user background">                    
+            </div>
+            <figure class="card-profile-image">
+                <img src="{{data.avatar}}" alt="{{data.name}}" class="circle z-depth-2 responsive-img activator">
+            </figure>
+            <div class="card-content">
+                <div class="row">                    
+                    <div class="col s12 m3 l3 offset-m2 offset-l2">                        
+                        <h4 class="card-title grey-text text-darken-4">{{data.nome}}</h4>
+                        <p class="medium-small grey-text">{{data.email}}</p>                        
+                    </div>
+                    <div class="col s12 m3 l3 center-align">
+                        <h4 class="card-title grey-text text-darken-4">{{data.celular}}</h4>
+                        <p class="medium-small grey-text">Celular</p>                        
+                    </div>                                      
+                    <div class="col s12 m3 l3 center-align">
+                        <h4 class="card-title grey-text text-darken-4">{{data.cpf}}</h4>
+                        <p class="medium-small grey-text">CPF</p>                        
+                    </div>                     
+                </div>
+            </div>
+
+        </div>
+
+        <form>
+            <fieldset>
+                <legend>Informações Pessoais</legend>
+                <div class="row">
+                    <div class="file-field input-field col s12">                    
+                        <div class="btn">
+                            <span>Alterar Avatar</span>
+                            <input type="file" id="avatar">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <div class="input-field col s12 m7 l7">
+                        <input id="nome" type="text" class="validate" value="{{data.nome}}">
+                        <label class="active"  for="nome">Nome</label>
+                    </div>
+                    <div class="input-field col s12 m5 l5">
+                        <input id="data_nascimento" type="date" class="validate" value="{{data.data_nascimento}}">
+                        <label class="active"  for="data_nascimento">Data de Nascimento</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="email" type="text" class="validate" value="{{data.email}}">
+                        <label class="active"  for="email">E-mail</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">                       
+                        <input id="cpf" type="text" class="validate" value="{{data.cpf}}">
+                        <label class="active"  for="cpf">CPF</label>                        
+                    </div>
+                    <div class="input-field col s12 m6 l6">                        
+                        <input id="rg" type="text" class="validate" value="{{data.rg}}">
+                        <label class="active"  for="rg">RG</label>                        
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="telefone" type="tel" class="validate" value="{{data.telefone}}">
+                        <label class="active" for="telefone">Telefone</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="celular" type="tel" class="validate" value="{{data.celular}}">
+                        <label class="active" for="celular">Celular</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Informações para correspondência</legend>
+                <div class="row">
+                    <div class="input-field col s12 m4 l4">
+                        <input id="cep" type="text" class="validate" value="{{data.cep}}">
+                        <label class="active" for="cep">CEP</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <input id="cidade" type="text" class="validate" value="{{data.cidade}}">
+                        <label class="active" for="cidade">Cidade</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <select name="estado" id="estado">
+                            <option value="" disabled selected>Selecione o Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="rua" type="text" class="validate" value="{{data.rua}}">
+                        <label class="active" for="rua">Rua</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m2 l2">
+                        <input id="numero" type="text" class="validate" value="{{data.numero}}">
+                        <label class="active" for="numero">Número</label>
+                    </div>
+                    <div class="input-field col s12 m3 l3">
+                        <input id="complemento" type="text" class="validate" value="{{data.complemento}}">
+                        <label class="active" for="complemento">Complemento</label>
+                    </div>
+                    <div class="input-field col s12 m7 l7">
+                        <input id="bairro" type="text" class="validate" value="{{data.bairro}}">
+                        <label class="active" for="bairro">Bairro</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Informações de Redes Sociais</legend>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="facebook" type="text" class="validate" value="{{data.facebook}}">
+                        <label class="active" class="active"  for="facebook">Link Facebook</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="linkedin" type="text" class="validate" value="{{data.linkedin}}">
+                        <label class="active" class="active"  for="linkedin">Link Linkedin</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="whatsapp" type="text" class="validate" value="{{data.whatsapp}}">
+                        <label class="active" class="active"  for="wathsapp">Número WathsApp</label>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="hidden" value="{{data.$id}}" id="uid">
+            <input type="hidden" value="{{data.tipoUsuario}}" id="tipo_usuario">
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Atualizar Informações
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--end container-->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+    function salvar() {
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var cpf = $('#cpf').val();
+        var rg = $('#rg').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+
+        var cep = $('#cep').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado').val();
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+
+        var linkedin = $('#linkedin').val();
+        var facebook = $('#facebook').val();
+        var whatsapp = $('#whatsapp').val();
+        var data_nascimento = $('#data_nascimento').val();
+
+        var avatar = document.getElementById("avatar").files[0];
+
+        var storageRef = firebase.storage().ref();
+
+        var id = $('#uid').val();
+        var tipo_usuario = $('#tipo_usuario').val();
+
+
+// Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('clientes/' + avatar.name).put(avatar);
+
+// Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, function (error) {
+            switch (error.code) {
+                case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break;
+
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect error.serverResponse
+                    break;
+            }
+        }, function () {
+            // Upload completed successfully, now we can get the download URL
+            var downloadURL = uploadTask.snapshot.downloadURL;
+
+            firebase.database().ref('clientes/' + id).set({
+                nome: nome,
+                email: email,
+                cpf: cpf,
+                rg: rg,
+                telefone: telefone,
+                celular: celular,
+                cep: cep,
+                cidade: cidade,
+                estado: estado,
+                rua: rua,
+                numero: numero,
+                complemento: complemento,
+                bairro: bairro,
+                linkedin: linkedin,
+                facebook: facebook,
+                whatsapp: whatsapp,
+                data_nascimento: data_nascimento,
+                avatar: downloadURL,
+                tipo_usuario: tipo_usuario
+            });
+            swal("Perfil Atualizado com sucesso!", "", "success");
+        });
+
+    }
+</script>

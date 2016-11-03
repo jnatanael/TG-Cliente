@@ -1,0 +1,54 @@
+<script src="js/table-script.js" type="text/javascript"></script>
+<link href="css/customTable.css" rel="stylesheet" type="text/css"/>
+
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+
+        <div id="table-datatables">            
+            <form method="post" action="javascript:;" id="frm-filtro">                
+                <div class="input-field">
+                    <label for="pesquisar">Pesquisar</label>
+                    <input type="text" id="pesquisar" name="pesquisar" size="30" />                
+                </div>
+            </form>
+            <table id="data-table-simple" class="responsive-table display hoverable centered" cellspacing="0" summary="Tabela de propriedades">
+                <thead>
+                    <tr>                        
+                        <th data-field="Propriedade"><i class="mdi-maps-terrain"></i> Propriedade</th>
+                        <th data-field="Cliente"><i class="mdi-social-mood"></i> Cliente</th>
+                        <th data-field="Cidade / UF"><i class="mdi-maps-place"></i> Cidade / UF</th>
+                        <th data-field="Ações"><i class="mdi-action-settings"></i> Ações</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    <tr ng-repeat="propriedade in data" ng-if="propriedade.idProprietario === dataCliente.$id">
+                        <td>{{propriedade.nome_fazenda}}</td>
+                        <td>{{propriedade.proprietario}}</td>
+                        <td>{{propriedade.cidade}} / {{propriedade.estado}}</td>
+                        <td>
+                            <a class="btn teal waves-effect waves-light" href="#info-propriedade/{{propriedade.$id}}"><i class="mdi-action-info"></i> Informações</a>                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+</div>
+<!--end container-->
+

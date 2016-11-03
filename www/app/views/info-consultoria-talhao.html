@@ -1,0 +1,457 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#agenda">Agenda</a></li>
+                    <li><a href="#consultoria/{{idConsult}}">Consultoria</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+<!--start container-->
+<div class="container">
+    <div class="section" ng-controller="infoPlanejamentoTalhaoController">
+        <p class="caption">Informações do Planejamento <strong>{{data.titulo}}</strong>.</p>
+        <div class="divider"></div><br>
+
+        <fieldset>
+            <legend>Informações do Planejamento</legend>
+            <h5><strong>Proprietário: </strong>{{data.cliente}}</h5>
+            <h5><strong>Cidade: </strong>{{dataP.cidade}} / {{dataP.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{dataP.zona_rural}}</h5>
+            <h5><strong>Propriedade: </strong> {{data.propriedade}}</h5>
+            <h5><strong>Talhão: </strong> {{dataT.talhao}}</h5>
+            <h5><strong>Etapa: </strong> <span ng-if="dataVisita.$id === idConsult">{{dataVisita.etapa}}</span></h5>
+        </fieldset>
+        <fieldset>
+            <legend>Planejamento</legend>
+            <div class="row">
+                <div class="input-field col s12 m4 l4">
+                    <input id="variedade" type="text" disabled value="{{dataT.variedade}}">
+                    <label for="variedade" class="active">Variedade</label>
+                </div>
+                <div class="input-field col s6 m4 l4">
+                    <input id="area_medida" type="text" value="{{dataT.area_medida}}" disabled>
+                    <label for="area_medida" class="active">Área Medida</label>
+                </div>
+                <div class="input-field col s6 m4 l4">
+                    <input id="populacao" type="text" value="{{dataT.populacao}}" disabled>
+                    <label for="populacao" class="active">População</label>
+                </div>
+                <div class="input-field col s6 m3 l3">
+                    <input id="adubacao_plantio" type="text" value="{{dataT.adubacao_plantio}}" disabled>
+                    <label for="adubacao_plantio" class="active">Adubação Plantio</label>
+                </div>
+                <div class="input-field col s6 m3 l3">
+                    <input id="adubacao_cobertura" type="text" value="{{dataT.adubacao_cobertura}}" disabled>
+                    <label for="adubacao_cobertura" class="active">Adubação Cobertura</label>
+                </div>
+                <div class="input-field col s6 m3 l3">
+                    <input id="regulagem_pulverizador" type="text" value="{{dataT.regulagem_pulverizador}}" disabled>
+                    <label for="regulagem_pulverizador" class="active">Regulagem do Pulverizador</label>
+                </div>                
+                <div class="input-field col s6 m3 l3">
+                    <input id="regulagem_plantandeira" type="text" value="{{dataT.regulagem_plantandeira}}" disabled>
+                    <label for="regulagem_plantandeira" class="active">Regulagem da Plantadeira</label>
+                </div>                
+            </div>
+            <div id="planejamentoFinal">
+                <fieldset ng-if="dataVisita.etapa === 'Dessecação'">
+                    <legend>Dessecação<sup>1</sup></legend>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Planejado</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoD" class="materialize-textarea">{{dataT.dessecacao_planejado}}</textarea>
+                                    <label for="produtoD" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Realizado</legend>
+                                <p>Data de Realização: {{dataT.dessecacao_realizado_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="dessecacao_realizado" class="validate materialize-textarea">{{dataT.dessecacao_realizado}}</textarea>
+                                    <label for="dessecacao_realizado" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria" disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset ng-if="dataVisita.etapa === 'Plantio'">
+                    <legend>Plantio<sup>2</sup></legend>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Planejado por kg de sementes</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoP" class="materialize-textarea">{{dataT.plantio_planejado}}</textarea>
+                                    <label for="produtoP" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Realizado</legend>
+                                <p>Data de Realização: {{dataT.plantio_realizado_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="plantio_realizado" class="materialize-textarea">{{dataT.plantio_realizado}}</textarea>
+                                    <label for="plantio_realizado" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria" disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset  ng-if="dataVisita.etapa === '1 de Ultra'">
+                    <legend>1 de Ultra<sup>3</sup></legend>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input id="um_ultra_estagio" type="text" value="{{dataT.um_ultra_estagio}}" disabled>
+                                <label for="um_ultra_estagio" class="active">Estágio</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Padrão</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoU" class="materialize-textarea">{{dataT.um_ultra_padrao}}</textarea>
+                                    <label for="produtoU" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Inseticidas</legend>
+                                <p>Data de Realização: {{dataT.um_ultra_inseticidas_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="um_ultra_inseticidas" class="materialize-textarea">{{dataT.um_ultra_inseticidas}}</textarea>
+                                    <label for="um_ultra_inseticidas" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria"  disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset  ng-if="dataVisita.etapa === '2 de Ultra'">
+                    <legend>2 de Ultra<sup>4</sup></legend>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input id="dois_ultra_estagio" type="text" value="{{dataT.dois_ultra_estagio}}" disabled>
+                                <label for="dois_ultra_estagio" class="active">Estágio</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Padrão</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoTwoU" class="materialize-textarea">{{dataT.dois_ultra_padrao}}</textarea>
+                                    <label for="produtoTwoU" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Inseticidas</legend>
+                                <p>Data de Realização: {{dataT.dois_ultra_inseticidas_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="dois_ultra_inseticidas" class="materialize-textarea">{{dataT.dois_ultra_inseticidas}}</textarea>
+                                    <label for="dois_ultra_inseticidas" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div> 
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria"  disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>                              
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset  ng-if="dataVisita.etapa === '2º Fungicida'">
+                    <legend>2<sup>o</sup> Fungicida</legend>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input id="primeiro_fungicida_estagio" type="text" value="{{dataT.primeiro_fungicida_estagio}}" disabled>
+                                <label for="primeiro_fungicida_estagio" class="active">Estágio</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Padrão</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoF" class="materialize-textarea">{{dataT.primeiro_fungicida_padrao}}</textarea>
+                                    <label for="produtoF" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Fungicida</legend>
+                                <p>Data de Realização: {{dataT.primeiro_fungicida_fungicida_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="primeiro_fungicida_fungicida" class="materialize-textarea">{{dataT.primeiro_fungicida_fungicida}}</textarea>
+                                    <label for="primeiro_fungicida_fungicida" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div> 
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria"  disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset ng-if="dataVisita.etapa === '3º Fungicida'">
+                    <legend>3<sup>o</sup> Fungicida<sup>5</sup></legend>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input id="segundo_fungicida_estagio" type="text" value="{{dataT.segundo_fungicida_estagio}}" disabled>
+                                <label for="segundo_fungicida_estagio" class="active">Estágio</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Padrão</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoTwoF" class="materialize-textarea">{{dataT.segundo_fungicida_padrao}}</textarea>
+                                    <label for="produtoTwoF" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Fungicida</legend>
+                                <p>Data de Realização: {{dataT.segundo_fungicida_fungicida_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="segundo_fungicida_fungicida" class="materialize-textarea">{{dataT.segundo_fungicida_fungicida}}</textarea>
+                                    <label for="segundo_fungicida_fungicida" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div> 
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria" disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset  ng-if="dataVisita.etapa === '4º Fungicida'">
+                    <legend>4<sup>o</sup> Fungicida<sup>6</sup></legend>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input id="terceiro_fungicida_estagio" type="text" value="{{dataT.terceiro_fungicida_estagio}}" disabled>
+                                <label for="terceiro_fungicida_estagio" class="active">Estágio</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Padrão</legend>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="produtoTreF" class="materialize-textarea">{{dataT.terceiro_fungicida_padrao}}</textarea>
+                                    <label for="produtoTreF" class="active">Produto - Dosagem</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <fieldset>
+                                <legend>Fungicida</legend>
+                                <p>Data de Realização: {{dataT.terceiro_fungicida_fungicida_data}}</p>
+                                <div class="input-field col s12">
+                                    <textarea disabled id="terceiro_fungicida_fungicida" class="materialize-textarea">{{dataT.terceiro_fungicida_fungicida}}</textarea>
+                                    <label for="terceiro_fungicida_fungicida" class="active">Dados</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="card-panel">                       
+                        <h5>Prescrição da Consultoria</h5>
+                        <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div class="input-field">
+                                    <textarea id="consultoria" disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                    <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l6 row">
+                                <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                    <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div ng-if="dataVisita.etapa === 'Entre Etapas'" class="card-panel">
+                Informações da Consultoria
+                <div class="card-panel">                       
+                    <h5>Prescrição da Consultoria</h5>
+                    <p><i class="mdi-device-access-time"></i> {{dataVisita.data}}</p>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <div class="input-field">
+                                <textarea id="consultoria"  disabled class="materialize-textarea">{{dataVisita.indicacoes}}</textarea>
+                                <label for="consultoria" class="active hide">Prescrição da Consultoria</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6 row">
+                            <div class="col s6" ng-repeat="img in dataVisita.imagens">
+                                <img class="responsive-img  " src="{{img.imagem}}" alt="Imagem da Visita">  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>        
+    </div>
+</div>
+
+<script>
+            $(document).ready(function () {
+                $('.collapsible').collapsible({
+                    accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+            });
+            function salvar() {
+                swal({title: "Salvando!",
+                    text: "Aguarde...",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                var dessecacao_realizado = $('#dessecacao_realizado').val();
+                var plantio_realizado = $('#plantio_realizado').val();
+                var um_ultra_inseticidas = $('#um_ultra_inseticidas').val();
+                var dois_ultra_inseticidas = $('#dois_ultra_inseticidas').val();
+                var primeiro_fungicida_fungicida = $('#primeiro_fungicida_fungicida').val();
+                var segundo_fungicida_fungicida = $('#segundo_fungicida_fungicida').val();
+                var terceiro_fungicida_fungicida = $('#terceiro_fungicida_fungicida').val();
+
+                var dessecacao_realizado_data = $('#dessecacao_realizado_data').val();
+                var plantio_realizado_data = $('#plantio_realizado_data').val();
+                var um_ultra_inseticidas_data = $('#um_ultra_inseticidas_data').val();
+                var dois_ultra_inseticidas_data = $('#dois_ultra_inseticidas_data').val();
+                var primeiro_fungicida_fungicida_data = $('#primeiro_fungicida_fungicida_data').val();
+                var segundo_fungicida_fungicida_data = $('#segundo_fungicida_fungicida_data').val();
+                var terceiro_fungicida_fungicida_data = $('#terceiro_fungicida_fungicida_data').val();
+
+                var id1 = $('#id1').val();
+                var id2 = $('#id2').val();
+
+                firebase.database().ref('planejamentos/' + id1 + '/planejamentoTalhoes/' + id2).update({
+                    dessecacao_realizado: dessecacao_realizado,
+                    plantio_realizado: plantio_realizado,
+                    um_ultra_inseticidas: um_ultra_inseticidas,
+                    dois_ultra_inseticidas: dois_ultra_inseticidas,
+                    primeiro_fungicida_fungicida: primeiro_fungicida_fungicida,
+                    segundo_fungicida_fungicida: segundo_fungicida_fungicida,
+                    terceiro_fungicida_fungicida: terceiro_fungicida_fungicida,
+                    dessecacao_realizado_data: dessecacao_realizado_data,
+                    plantio_realizado_data: plantio_realizado_data,
+                    um_ultra_inseticidas_data: um_ultra_inseticidas_data,
+                    dois_ultra_inseticidas_data: dois_ultra_inseticidas_data,
+                    primeiro_fungicida_fungicida_data: primeiro_fungicida_fungicida_data,
+                    segundo_fungicida_fungicida_data: segundo_fungicida_fungicida_data,
+                    terceiro_fungicida_fungicida_data: terceiro_fungicida_fungicida_data
+                });
+                swal("Planejamento atualizado com sucesso!", "", "success");
+            }
+            ;
+</script>

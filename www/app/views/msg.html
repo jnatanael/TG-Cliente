@@ -1,0 +1,113 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#mensagens/{{id}}">Mensagens</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <div class="recent-activity-list chat-out-list">                
+            <div class="card-panel recent-activity-list-text">
+                <h1><i class="mdi-communication-chat"></i> {{dataMsg.assunto}}</h1>
+                <h6><i class="mdi-social-person"></i> <strong>{{dataMsg.remetente}}</strong></h6>
+                <h6><i class="mdi-device-access-time"></i> {{dataMsg.data}}</h6>
+                <hr>
+                <p>{{dataMsg.mensagem}}</p>
+            </div>
+            <div class="card-panel">
+                <h5>Respostas</h5>
+                <div ng-repeat="respostaMsg in dataMsg.resposta" class="card-panel">
+                    <h6><i class="mdi-social-person"></i> <strong>{{respostaMsg.remetente}}</strong></h6>
+                    <h6><i class="mdi-device-access-time"></i> {{respostaMsg.data}}</h6>
+                    <hr>
+                    <p>{{respostaMsg.resposta}}</p>
+                </div>
+            </div>
+        </div>        
+        <br><br>
+        <hr><hr>
+        <form>
+            <input type="hidden" value="{{id}}" id="idUsr">
+            <input type="hidden" value="{{dataMsg.$id}}" id="idMsg">
+            <input type="hidden" value="{{dataMsg.usuario}}" id="remetente">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="resposta">Responder</label>
+                    <textarea id="resposta" class="materialize-textarea"></textarea>
+                </div>
+                <div class="input-field col s12">                                        
+                    <button onclick="enviar()" class="btn green waves-effect waves-light left" type="submit" name="action">Responder
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--end container-->
+
+<script>
+
+        
+    function dataAtual() {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+
+                var seconds = today.getSeconds();
+                var minutes = today.getMinutes();
+                var hour = today.getHours();
+                
+                if (dd < 10) {
+                    dd = '0' + dd;
+                }
+
+                if (mm < 10) {
+                    mm = '0' + mm;
+                }
+
+
+
+                today = dd + '/' + mm + '/' + yyyy + ' - ' + hour + ':' + minutes + ':' + seconds;
+                return today;
+            }
+            ;
+
+            function enviar() {
+                swal({title: "Salvando!",
+                    text: "Aguarde...",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                var idUsr = $("#idUsr").val();
+                var idMsg = $("#idMsg").val();
+
+                var data = new Date();
+
+                var resposta = $('#resposta').val();
+                var remetente = $('#remetente').val();
+
+                firebase.database().ref('notificacoes/' + idUsr + '/' + idMsg + '/resposta/' + data).set({
+                    resposta: resposta,
+                    data: dataAtual(),
+                    remetente: remetente
+                });
+                firebase.database().ref('notificacoes/' + idUsr + '/' + idMsg).update({status: 0});
+
+                swal("Notificação enviada com sucesso!", "", "success");
+                window.location.href = "#msg/" + idUsr + "/" + idMsg;
+            }
+            ;
+</script>

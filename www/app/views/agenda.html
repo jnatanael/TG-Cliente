@@ -1,0 +1,53 @@
+<script src="js/table-script.js" type="text/javascript"></script>
+<link href="css/customTable.css" rel="stylesheet" type="text/css"/>
+
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+       
+        <div id="table-datatables">
+            <form method="post" action="javascript:;" id="frm-filtro">                
+                <div class="input-field">
+                    <label for="pesquisar">Pesquisar</label>
+                    <input type="text" id="pesquisar" name="pesquisar" size="30" />                
+                </div>
+            </form>
+            <table id="data-table-simple" class="responsive-table display hoverable striped centered" cellspacing="0" summary="Tabela de Clientes">
+                <thead class="cyan white-text">
+                    <tr>
+                        <th data-field="Data"><i class="mdi-editor-insert-invitation"></i> Data</th>
+                        <th data-field="Propriedade"><i class="mdi-maps-terrain"></i> Propriedade</th>
+                        <th data-field="Consultor"><i class="mdi-social-group-add"></i> Consultor</th>
+                        <th data-field="Ações"><i class="mdi-action-settings"></i> Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="consultoria in data" ng-if="consultoria.cliente === dataCliente.nome">
+                        <td>{{consultoria.data}}</td>
+                        <td>{{consultoria.propriedade}}</td>
+                        <td>{{consultoria.consultor}}</td>
+                        <td>
+                            <a class="btn teal waves-effect waves-light" href="#consultoria/{{consultoria.$id}}"><i class="mdi-action-info"></i> Informações</a>                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--end container-->
